@@ -15,10 +15,14 @@ struct HomeView: View {
     
     var body: some View {
         NavigationStack{
-            VStack {
-                Text("Welcome back! 🧶")
-                    .font(.largeTitle)
-                    .padding()
+            VStack(alignment: .leading) {
+                
+                if let user = Auth.auth().currentUser {
+                    
+                    Text("Welcome back, \(user.email ?? "knitter") 🧶")
+                        .font(.largeTitle)
+                        .padding()
+                }
                 
                 Text("Here’s your knitting dashboard.")
                     .padding(.bottom)

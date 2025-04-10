@@ -21,6 +21,14 @@ struct LoginView: View {
         } else {
             
             VStack(spacing: 20) {
+                
+                if let message = authVM.authMessage {
+                    Text(message)
+                        .foregroundColor(.green)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal)
+                }
+                
                 TextField("Email", text: $email)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .disableAutocorrection(true)
@@ -45,6 +53,9 @@ struct LoginView: View {
             }
             .padding()
         }
+        
+        
+        
     }
 }
 
