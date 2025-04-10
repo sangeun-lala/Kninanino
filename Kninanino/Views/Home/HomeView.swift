@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  HomeView.swift
 //  Kninanino
 //
 //  Created by Sang-eun Cho on 2025/03/01.
@@ -7,27 +7,34 @@
 
 import SwiftUI
 import SwiftData
+import FirebaseAuth
 
 struct HomeView: View {
+    
+    @EnvironmentObject var authVM: AuthViewModel
+    
     var body: some View {
-        
-        VStack {
-            
-            
-            Image("IntroGorilla")
-                .resizable()
-                .cornerRadius(10.0)
-                .aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fit/*@END_MENU_TOKEN@*/)
-                .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-           
-            Text("Kninanino")
-                .padding()
-            
-            Text("Hello and welcome!")
-            
+        NavigationStack{
+            VStack {
+                Text("Welcome back! 🧶")
+                    .font(.largeTitle)
+                    .padding()
+                
+                Text("Here’s your knitting dashboard.")
+                    .padding(.bottom)
+                
+                Button("Sign Out") {
+                    authVM.signOut()
+                }
+                    .padding()
+                    .background(Color.black)
+                    .foregroundStyle(.white)
+                    .cornerRadius(10)
+                    .shadow(radius: 3)
+            }
         }
     }
-    }
+}
 
 #Preview {
    HomeView()

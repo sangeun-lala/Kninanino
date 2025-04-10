@@ -15,30 +15,36 @@ struct LoginView: View {
     @State private var password = ""
 
     var body: some View {
-        VStack(spacing: 20) {
-            TextField("Email", text: $email)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .disableAutocorrection(true)
-                .textInputAutocapitalization(.never)
-                .keyboardType(UIKeyboardType.emailAddress)
-
-            SecureField("Password", text: $password)
-                .textFieldStyle(.roundedBorder)
-
-            Button("Sign In") {
-                authVM.signIn(email: email, password: password)
+        
+        if authVM.isLoading {
+            ProgressView("Signing in...")
+        } else {
+            
+            VStack(spacing: 20) {
+                TextField("Email", text: $email)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .disableAutocorrection(true)
+                    .textInputAutocapitalization(.never)
+                    .keyboardType(UIKeyboardType.emailAddress)
+                
+                SecureField("Password", text: $password)
+                    .textFieldStyle(.roundedBorder)
+                
+                Button("Sign In") {
+                    authVM.signIn(email: email, password: password)
+                }
+                
+                Button("Sign Up") {
+                    authVM.signUp(email: email, password: password)
+                }
+                
+                if let error = authVM.errorMessage {
+                    Text(error)
+                        .foregroundColor(.red)
+                }
             }
-
-            Button("Sign Up") {
-                authVM.signUp(email: email, password: password)
-            }
-
-            if let error = authVM.errorMessage {
-                Text(error)
-                    .foregroundColor(.red)
-            }
+            .padding()
         }
-        .padding()
     }
 }
 
