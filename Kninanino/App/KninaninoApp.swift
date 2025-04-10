@@ -32,8 +32,8 @@ struct KninaninoApp: App {
     var body: some Scene {
         WindowGroup {
             if authVM.user != nil {
-                HomeView()
-                    .onAppear { print("🔵 Showing HomeView") }
+                MainTabView()
+                    .onAppear { print("🔵 Showing MainTabView with HomeView as first tab") }
             } else if hasSeenWelcomeScreen {
                 LoginView()
                     .onAppear { print("🟠 Showing LoginView") }
