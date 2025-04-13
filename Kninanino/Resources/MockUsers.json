@@ -1,0 +1,29 @@
+[
+  {
+    "id": "00000000-0000-0000-0000-000000000001",
+    "username": "Dadakim01",
+    "displayName": "Dada",
+    "level": "Beginner",
+    "profilePictureURL": null,
+    "bio": "Would love to knit the patterns by the lovely Petiteknit! Just bought a set of yarns, started knitting but I'm so stuck at the back side of the sweater and need help.",
+    "homebase": "London"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000002",
+    "username": "Sasaccc",
+    "displayName": "Sasa",
+    "level": "Intermediate",
+    "profilePictureURL": null,
+    "bio": "I've done a dozen of knitting projects including socks and sweaters, but I need inspiration and knitting groups near me to get back to the fun of knitting again.",
+    "homebase": "London"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000003",
+    "username": "Yuyuchang",
+    "displayName": "Yuyu",
+    "level": "Advanced",
+    "profilePictureURL": null,
+    "bio": "Happy to help others and would love to make new knitter friends! Also let me know if you'd like to have free yarns to play with. I have way to many!",
+    "homebase": "Tokyo"
+  }
+]
