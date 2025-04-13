@@ -66,9 +66,12 @@
 		};
 		0EB57C762DAC5B03007C7C1B /* Documentation */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+<<<<<<< HEAD
 			exceptions = (
 				0EB57C862DAC6B9F007C7C1B /* Exceptions for "Documentation" folder in "Kninanino" target */,
 			);
+=======
+>>>>>>> 294e656f0f321f0a553b15b75e4811bf97c9c6f6
 			path = Documentation;
 			sourceTree = "<group>";
 		};
