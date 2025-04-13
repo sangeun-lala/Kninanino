@@ -11,6 +11,7 @@
 		0E5D46D92DA57FA9004ACDBB /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 0E5D46D82DA57FA9004ACDBB /* FirebaseCore */; };
 		0E5D46DB2DA57FA9004ACDBB /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 0E5D46DA2DA57FA9004ACDBB /* FirebaseFirestore */; };
 		0E5D46DD2DA57FA9004ACDBB /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 0E5D46DC2DA57FA9004ACDBB /* FirebaseStorage */; };
+		0EB57C782DAC5B74007C7C1B /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0EB57C772DAC5B74007C7C1B /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,7 +35,18 @@
 		0E5D46952DA57EA1004ACDBB /* Kninanino.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kninanino.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E5D46A72DA57EA3004ACDBB /* KninaninoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KninaninoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E5D46B12DA57EA3004ACDBB /* KninaninoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KninaninoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0EB57C772DAC5B74007C7C1B /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		0EB57C862DAC6B9F007C7C1B /* Exceptions for "Documentation" folder in "Kninanino" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"data-models/users.md",
+			);
+			target = 0E5D46942DA57EA1004ACDBB /* Kninanino */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		0E5D46972DA57EA1004ACDBB /* Kninanino */ = {
@@ -50,6 +62,14 @@
 		0E5D46B42DA57EA3004ACDBB /* KninaninoUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = KninaninoUITests;
+			sourceTree = "<group>";
+		};
+		0EB57C762DAC5B03007C7C1B /* Documentation */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				0EB57C862DAC6B9F007C7C1B /* Exceptions for "Documentation" folder in "Kninanino" target */,
+			);
+			path = Documentation;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -86,6 +106,8 @@
 		0E5D468C2DA57EA1004ACDBB = {
 			isa = PBXGroup;
 			children = (
+				0EB57C772DAC5B74007C7C1B /* README.md */,
+				0EB57C762DAC5B03007C7C1B /* Documentation */,
 				0E5D46972DA57EA1004ACDBB /* Kninanino */,
 				0E5D46AA2DA57EA3004ACDBB /* KninaninoTests */,
 				0E5D46B42DA57EA3004ACDBB /* KninaninoUITests */,
@@ -230,6 +252,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EB57C782DAC5B74007C7C1B /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
