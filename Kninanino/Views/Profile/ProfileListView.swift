@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ProfileListView: View {
-    @StateObject private var viewModel = ProfileViewModel(useMock: true)
+    @StateObject private var viewModel = ProfileViewModel()
 
     var body: some View {
         NavigationView {

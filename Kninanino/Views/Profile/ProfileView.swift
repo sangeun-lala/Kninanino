@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ProfileView: View {
     
+    @StateObject private var viewModel = ProfileViewModel()
+    
     let user: AppUser
     let isCurrentUser: Bool
     
