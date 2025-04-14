@@ -18,7 +18,6 @@ struct HomeView: View {
             VStack(alignment: .leading) {
                 
                 if let user = Auth.auth().currentUser {
-                    
                     Text("Welcome back, \(user.email ?? "knitter") 🧶")
                         .font(.largeTitle)
                         .padding()
@@ -26,6 +25,13 @@ struct HomeView: View {
                 
                 Text("Here’s your knitting dashboard.")
                     .padding(.bottom)
+                
+                Text("Carousels for each level will be shown here.\n\n- Beginner projects\n- Intermediate projects\n- Advanced projects")
+                    .padding(.bottom)
+                
+                Text("Features: 1) Filter views for friends only.\n2) Show only favorites.\n3) Filter for tags")
+                    .padding(.bottom)
+                
                 
                 Button("Sign Out") {
                     authVM.signOut()
