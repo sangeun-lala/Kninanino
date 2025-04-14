@@ -20,6 +20,31 @@ struct AppUser: Identifiable, Codable {
 
 ---
 
+## 💡 Field Descriptions
+
+| Field               | Type    | Description                                                  |
+|---------------------|---------|--------------------------------------------------------------|
+| `id`                | UUID    | Unique identifier for each user.                            |
+| `username`          | String  | Unique handle for display and linking (e.g., `@Dadakim01`). |
+| `displayName`       | String  | Friendly name for UI display.                              |
+| `level`             | String  | Skill level: `"Beginner"`, `"Intermediate"`, `"Advanced"`. |
+| `profilePictureURL` | String? | URL string for profile image. Optional.                    |
+| `bio`               | String  | User introduction or knitting story.                        |
+| `homebase`          | String  | User’s base location (e.g., "London").                      |
+
+---
+
+## 🧪 Sample Users (Mock Data)
+
+| Username   | Level       | Bio Snippet                                                                 | Homebase |
+|------------|-------------|------------------------------------------------------------------------------|----------|
+| Dadakim01  | Beginner     | "Would love to knit the patterns by the lovely Petiteknit! Just bought..." | London   |
+| Sasaccc    | Intermediate | "I've done a dozen of knitting projects including socks and sweaters..."   | London   |
+| Yuyuchang  | Advanced     | "Happy to help others and would love to make new knitter friends..."       | Tokyo    |
+
+
+---
+
 ## ☁️ Firestore Document Example (User: Sasa)
 
 ```json
