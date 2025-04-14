@@ -19,7 +19,8 @@ struct MainTabView: View {
         level: "Beginner",
         profilePictureURL: nil,
         bio: "Hello!",
-        homebase: "London"
+        homebase: "London",
+        dateJoined: ISO8601DateFormatter().date(from: "2025-04-12T00:00:00Z")!
     )
     
     var body: some View {

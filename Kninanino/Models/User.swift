@@ -15,4 +15,5 @@ struct AppUser: Identifiable, Codable {
     let profilePictureURL: String?  // Optional mock image
     let bio: String
     let homebase: String // The city where the user is based
+    let dateJoined: Date
 }
