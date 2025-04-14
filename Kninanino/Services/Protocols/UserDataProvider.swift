@@ -8,6 +8,6 @@
 import Foundation
 
 protocol UserDataProvider {
-    func fetchUsers() async throws -> [User]
-    func saveUser(_ user: User) async throws
+    func fetchUsers() async throws -> [AppUser]
+    func saveUser(_ user: AppUser) async throws
 }
