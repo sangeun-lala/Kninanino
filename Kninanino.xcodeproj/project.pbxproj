@@ -42,7 +42,8 @@
 		0EB57C862DAC6B9F007C7C1B /* Exceptions for "Documentation" folder in "Kninanino" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				"data-models/users.md",
+				"app-architecture/data-flow-map.md",
+				"data-models/models/users.md",
 			);
 			target = 0E5D46942DA57EA1004ACDBB /* Kninanino */;
 		};
