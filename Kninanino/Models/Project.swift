@@ -8,18 +8,20 @@
 
 
 import Foundation
+import FirebaseFirestore
 
 struct Project: Identifiable, Codable {
-    let id: String
-    let userId: String
-    let title: String              // e.g., "Ranunculus Sweater"
-    let patternName: String       // Optional: reuse `title` if same
-    let yarnUsed: String?         // Optional
-    let startDate: Date
-    let endDate: Date?            // Optional
-    let notes: String?            // Optional notes about the project
-    let rating: String?
-    let needle: String?
-    let color: String?
-    let gaugeSwatches: [GaugeSwatch]
+    @DocumentID var id: String?
+    var userId: String
+    var title: String              // e.g., "Ranunculus Sweater"
+    var patternId: String?
+    var yarnId: String?         // Optional
+    var startDate: Date
+    var endDate: Date?            // Optional
+    var notes: String?            // Optional notes about the project
+    var rating: Double?          // Difficulty rating
+    var needle: String?
+    var color: String?
+    var gaugeSwatches: [GaugeSwatch]
 }
+

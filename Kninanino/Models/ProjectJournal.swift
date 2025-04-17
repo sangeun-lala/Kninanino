@@ -6,13 +6,16 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 struct ProjectJournal: Identifiable, Codable {
-    let id: String
-    let projectId: String          // <-- Link to a Project
-    let userId: String             // <-- Link to a User
-    let entryDate: Date
-    let location: String
-    let journalEntry: String
-    let photos: [String]?          // Optional: image filenames or URLs
+    @DocumentID var id: String?
+    var projectId: String          // <-- Link to a Project
+    var userId: String             // <-- Link to a User
+    var entryDate: Date
+    var locationId: String?
+    var journalEntry: String
+    var photos: [String]?          // Optional: image filenames or URLs
+    var likesCount: Int
+    var commentsCount: Int
 }

@@ -7,12 +7,14 @@
 
 
 import Foundation
+import FirebaseFirestore
 
 struct GaugeSwatch: Identifiable, Codable {
-    let id: String
-    let needleSize: String        // e.g., "3.5mm"
-    let yarnType: String          // e.g., "Merino DK"
-    let stitchesPerInch: Double
-    let rowsPerInch: Double
-    let notes: String?
+    @DocumentID var id: String?
+    var needleSize: String        // e.g., "3.5mm"
+    var yarnType: String          // e.g., "Merino DK"
+    var stitchesPer: Double
+    var rowsPer: Double
+    var notes: String?
+    var projectId: String
 }

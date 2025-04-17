@@ -6,14 +6,21 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 struct AppUser: Identifiable, Codable {
-    let id: UUID
-    let username: String
-    let displayName: String
-    let level: String  // "Beginner", "Expert", "Advanced"
-    let profilePictureURL: String?  // Optional mock image
-    let bio: String
-    let homebase: String // The city where the user is based
-    let dateJoined: Date
+    @DocumentID var id: String?
+    var username: String
+    var displayName: String
+    var level: String  // "Beginner", "Expert", "Advanced"
+    var bio: String?
+    var homebase: String?
+    var profilePictureURL: String?
+    var dateJoined: Date
+    var followersCount: Int
+    var followingCount: Int
 }
+
+//need to update the users.md
+
+

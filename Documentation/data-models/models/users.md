@@ -1,4 +1,4 @@
-# 🧵 User Data Model
+# 🧵 User Data Model (outdated, needs update)
 
 This document outlines how user data is structured across the Swift app, Firestore, and a potential SQL backend.
 
