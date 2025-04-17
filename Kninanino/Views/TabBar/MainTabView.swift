@@ -13,55 +13,47 @@ struct MainTabView: View {
     
     //Add a temporary, mock currentUser before implementing the actual currentUser.
     let currentUser = AppUser(
-        id: UUID(uuidString: "00000000-0000-0000-0000-000000000001")!,
-        username: "Dadakim01",
-        displayName: "Dada",
+        id: UUID().uuidString,  // ✅ convert UUID to String
+        username: "mockknitter",
+        displayName: "Mock Knitter",
         level: "Beginner",
-        profilePictureURL: nil,
-        bio: "Hello!",
+        bio: "I love knitting in cafés.",
         homebase: "London",
-        dateJoined: ISO8601DateFormatter().date(from: "2025-04-12T00:00:00Z")!
-    )
+        profilePictureURL: nil,
+        dateJoined: Date(),
+        followersCount: 0,
+        followingCount: 0
+        )
     
     var body: some View {
         TabView (selection: $selectedTab){
             HomeView()
                 .tabItem {
                     Image(systemName: "house")
-                    Text("Home")
-                    //Label("Home", systemImage: "house")
                 }
                 .tag(0)
 
             ExploreView()
                 .tabItem {
                     Image(systemName: "magnifyingglass")
-                    Text("Explore")
-                    //Label("Explore", systemImage: "magnifyingglass")
                 }
                 .tag(1)
 
-            NewJournalView()
+            NewJournalView(currentUserID: currentUser.id ?? "")
                 .tabItem {
                     Image(systemName: "plus.circle")
-                    Text("Add")
-                    //Label("Add", systemImage: "plus.circle")
                 }
                 .tag(2)
 
             NotificationsView()
                 .tabItem {
                     Image(systemName: "bell")
-                    Text("Notifications")
-                    //Label("Notifications", systemImage: "bell")
                 }
                 .tag(3)
 
             ProfileView(user: currentUser, isCurrentUser: true)
                 .tabItem {
                     Image(systemName: "person")
-                    Text("Profile")
-                    //Label("Profile", systemImage: "person")
                 }
                 .tag(4)
         }

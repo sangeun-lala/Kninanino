@@ -10,14 +10,16 @@ import Foundation
 struct MockUserDataProvider: UserDataProvider {
     private var mockUsers: [AppUser] = [
         AppUser(
-            id: UUID(),
+            id: UUID().uuidString,  // ✅ convert UUID to String
             username: "mockknitter",
             displayName: "Mock Knitter",
             level: "Beginner",
-            profilePictureURL: nil,
             bio: "I love knitting in cafés.",
             homebase: "London",
-            dateJoined: Date()
+            profilePictureURL: nil,
+            dateJoined: Date(),
+            followersCount: 0,
+            followingCount: 0
         )
     ]
 

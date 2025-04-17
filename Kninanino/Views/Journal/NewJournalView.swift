@@ -8,7 +8,16 @@
 import SwiftUI
 
 struct NewJournalView: View {
+    @StateObject var viewModel = NewJournalViewModel()
+    let currentUserID: String
+    
     var body: some View {
-        Text("New Journal")
+        VStack{
+            Text("New Journal")
+            Button("Save Journal") {
+                viewModel.addJournal(for: currentUserID)
+            }
+        }
     }
+    
 }

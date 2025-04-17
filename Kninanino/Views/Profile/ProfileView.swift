@@ -49,7 +49,7 @@ struct ProfileView: View {
                     }
                 }
                 
-                Text(user.bio)
+                Text(user.bio ?? "No bio available")
                     .font(.body)
             }
         }

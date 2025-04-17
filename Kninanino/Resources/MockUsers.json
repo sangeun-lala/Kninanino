@@ -4,10 +4,12 @@
     "username": "Dadakim01",
     "displayName": "Dada",
     "level": "Beginner",
-    "profilePictureURL": null,
     "bio": "Would love to knit the patterns by the lovely Petiteknit! Just bought a set of yarns, started knitting but I'm so stuck at the back side of the sweater and need help.",
     "homebase": "London",
-    "dateJoined": "2025-04-12T00:00:00Z"
+    "profilePictureURL": null,
+    "dateJoined": "2025-04-12T00:00:00Z",
+    "followersCount": 5,
+    "followingCount": 10
   },
   
   {
@@ -15,10 +17,12 @@
     "username": "Sasaccc",
     "displayName": "Sasa",
     "level": "Intermediate",
-    "profilePictureURL": null,
     "bio": "I've done a dozen of knitting projects including socks and sweaters, but I need inspiration and knitting groups near me to get back to the fun of knitting again.",
     "homebase": "London",
-    "dateJoined": "2025-04-08T00:00:00Z"
+    "profilePictureURL": null,
+    "dateJoined": "2025-04-08T00:00:00Z",
+    "followersCount": 10,
+    "followingCount": 20
   },
   
   {
@@ -26,9 +30,11 @@
     "username": "Yuyuchang",
     "displayName": "Yuyu",
     "level": "Advanced",
-    "profilePictureURL": null,
     "bio": "Happy to help others and would love to make new knitter friends! Also let me know if you'd like to have free yarns to play with. I have way to many!",
     "homebase": "Tokyo",
+    "profilePictureURL": null,
     "dateJoined": "2025-04-10T00:00:00Z"
+    "followersCount": 11,
+    "followingCount": 15
   }
 ]
