@@ -9,15 +9,19 @@ import SwiftUI
 
 struct NewJournalView: View {
     @StateObject var viewModel = NewJournalViewModel()
-    let currentUserID: String
+    @EnvironmentObject var authViewModel: AuthViewModel
+    
     
     var body: some View {
-        VStack{
-            Text("New Journal")
-            Button("Save Journal") {
-                viewModel.addJournal(for: currentUserID)
+        if let currentUser = authViewModel.currentUser {
+            VStack{
+                Text("New Journal for \(currentUser.username)")
+                Button("Save Journal") {
+                    viewModel.addJournal(for: currentUser.id ?? "")
+                }
             }
+        } else {
+            ProgressView("Loading user...")
         }
     }
-    
 }

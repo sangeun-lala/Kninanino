@@ -7,32 +7,31 @@
 
 import SwiftUI
 
-struct ProfileView: View {
+struct MyProfileView: View {
     
     @StateObject private var viewModel = ProfileViewModel()
-    
-    let user: AppUser
-    let isCurrentUser: Bool
+    @EnvironmentObject var authViewModel: AuthViewModel
     
     var body: some View {
-        
-        ScrollView {
-            VStack(spacing:16) {
-                headerSection
-                statsSection
-                filterBar
-                projectGallery
+        if let user = authViewModel.currentUser {
+            ScrollView {
+                VStack(spacing:16) {
+                    headerSection(for: user)
+                    statsSection
+                    filterBar
+                    projectGallery
+                }
+                .padding()
             }
-            .padding()
+            .navigationTitle(user.displayName)
+            .navigationBarTitleDisplayMode(.inline)
+        } else {
+            ProgressView("Loading profile..")
         }
-        
-        .navigationTitle(user.displayName)
-        .navigationBarTitleDisplayMode(.inline)
-        
     }
     
     
-    var headerSection: some View {
+    func headerSection(for user: AppUser) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
                 Image(systemName: "person.crop.circle.fill")
@@ -42,16 +41,13 @@ struct ProfileView: View {
                 
                 Spacer()
                 
-                
-                if isCurrentUser {
-                    Button ("Edit Profile"){
-                        // show edit form
-                    }
+                Button ("Edit Profile"){
+                    // show edit form
                 }
-                
-                Text(user.bio ?? "No bio available")
-                    .font(.body)
             }
+            
+            Text(user.bio ?? "No bio available")
+                .font(.body)
         }
     }
     
