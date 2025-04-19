@@ -11,7 +11,13 @@ import FirebaseAuth
 import FirebaseFirestore
 
 class AuthViewModel: ObservableObject {
-    @Published var user: User?
+    @Published var user: User? {
+        didSet {
+            if user != nil {
+                fetchCurrentUser()
+            }
+        }
+    }
     @Published var errorMessage: String?
     @Published var currentUser: AppUser?
     @Published var isLoading = false
@@ -36,6 +42,8 @@ class AuthViewModel: ObservableObject {
                 self.errorMessage = "Failed to fetch user: \(error.localizedDescription)"
                 return
             }
+            
+            print("📄 Raw snapshot data: \(String(describing: snapshot?.data()))")
             
             do {
                 self.currentUser = try snapshot?.data(as: AppUser.self)
@@ -163,6 +171,7 @@ class AuthViewModel: ObservableObject {
                 
                 print("✅ Sign-in success: \(user.email ?? "unknown email")")
                 self?.user = user
+                self?.fetchCurrentUser() // ✅ Fetch AppUser after login
             }
         }}
 

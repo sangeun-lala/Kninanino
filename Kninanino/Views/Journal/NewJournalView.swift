@@ -11,17 +11,25 @@ struct NewJournalView: View {
     @StateObject var viewModel = NewJournalViewModel()
     @EnvironmentObject var authViewModel: AuthViewModel
     
-    
     var body: some View {
-        if let currentUser = authViewModel.currentUser {
-            VStack{
-                Text("New Journal for \(currentUser.username)")
-                Button("Save Journal") {
-                    viewModel.addJournal(for: currentUser.id ?? "")
+        Group {
+            if let currentUser = authViewModel.currentUser {
+                VStack{
+                    Text("New Journal for \(currentUser.username)")
+                    Button("Save Journal") {
+                        viewModel.addJournal(for: currentUser.id ?? "")
+                    }
                 }
+            } else {
+                ProgressView("Loading user...")
             }
-        } else {
-            ProgressView("Loading user...")
+        }
+        .onAppear {
+            print("🟣 onAppear - user: \(String(describing: authViewModel.user))")
+            if authViewModel.currentUser == nil {
+                print("🔄 currentUser is nil – trying to fetch again")
+                authViewModel.fetchCurrentUser()
+            }
         }
     }
 }
