@@ -29,15 +29,19 @@ struct ProfileListView: View {
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
                         }
-
-                        Text(user.homebase)
-                            .font(.caption)
-                            .foregroundColor(.blue)
-
-                        Text(user.bio)
-                            .font(.body)
-                            .lineLimit(3)
-                            .foregroundColor(.primary)
+                        
+                        if let homebase = user.homebase {
+                            Text(homebase)
+                                .font(.caption)
+                                .foregroundColor(.blue)
+                        }
+                        
+                        if let bio = user.bio {
+                            Text(bio)
+                                .font(.body)
+                                .lineLimit(3)
+                                .foregroundColor(.primary)
+                        }
                     }
                 }
                 .padding(.vertical, 8)
