@@ -9,11 +9,11 @@
 
 import SwiftUI
 
-extension Binding {
-    static func unwrap(_ optional: Binding<String?>, defaultValue: String = "") -> Binding<String> {
+extension Binding where Value == String? {
+    func asTextFieldBinding(fallback: String = "") -> Binding<String> {
         Binding<String>(
-            get: { optional.wrappedValue ?? defaultValue },
-            set: { optional.wrappedValue = $0 }
+            get: { self.wrappedValue ?? fallback },
+            set: { self.wrappedValue = $0.isEmpty ? nil : $0 }
         )
     }
 }
