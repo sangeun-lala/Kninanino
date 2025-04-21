@@ -56,16 +56,15 @@ class AuthViewModel: ObservableObject {
     
     
 
-    func signUp(email: String, password: String) {
+    func signUp(with data: SignupFormData) {
         self.isLoading = true
-        errorMessage = nil
-        authMessage = nil
+        self.errorMessage = nil
+        self.authMessage = nil
         
-        print("📩 Attempting to sign up with email: \(email)")
+        print("📩 Attempting to sign up with email: \(data.email)")
 
-        Auth.auth().createUser(withEmail: email, password: password) { result, error in
-            DispatchQueue.main.async {
-                
+        Auth.auth().createUser(withEmail: data.email, password: data.password) { [weak self] result, error in DispatchQueue.main.async {
+                guard let self = self else {return}
                 self.isLoading = false
                 
                 if let error = error {
@@ -83,35 +82,31 @@ class AuthViewModel: ObservableObject {
                 // Create Firestore document
                 let newUser = AppUser(
                     id: user.uid,
-                    email: "mockmock@knina.com",
-                    username: "mockknitter", // later make this user input
-                    displayName: "Mock Knitter",
-                    level: "Beginner",
-                    bio: "I love knitting in cafés.",
-                    homebase: "London",
-                    profilePictureURL: nil,
+                    email: data.email,
+                    username: data.username,
+                    displayName: data.displayName,
+                    level: data.level,
+                    bio: data.bio,
+                    homebase: data.homebase,
+                    profilePictureURL: data.profilePictureURL,
                     dateJoined: Date(),
                     followersCount: 0,
                     followingCount: 0
-                    )
+                )
                 
                 do {
-                    try Firestore.firestore().collection("users").document(user.uid).setData(from: newUser) {
-                        error in
+                    try Firestore.firestore().collection("users").document(user.uid).setData(from: newUser) { error in
                         if let error = error {
-                            self.errorMessage = "⚠️ Could not save user: \(error.localizedDescription)"
-                            print(self.errorMessage ?? "")
+                            self.errorMessage = error.localizedDescription
+                            print("❌ Failed to save user to Firestore: \(error.localizedDescription)")
                         } else {
                             print("✅ Firestore user created successfully")
-                            // Proceed as needed — you might still want to sign them out
                         }
                     }
                 } catch {
-                    print("❌ Failed to encode user: \(error.localizedDescription)")
                     self.errorMessage = error.localizedDescription
+                    print("❌ Failed to encode user: \(error.localizedDescription)")
                 }
-                
-                
                 
                 // Send verification email
                 user.sendEmailVerification { error in
