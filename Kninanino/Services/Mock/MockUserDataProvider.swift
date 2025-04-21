@@ -11,6 +11,7 @@ struct MockUserDataProvider: UserDataProvider {
     private var mockUsers: [AppUser] = [
         AppUser(
             id: UUID().uuidString,  // ✅ convert UUID to String
+            email: "mockmock@knina.com",
             username: "mockknitter",
             displayName: "Mock Knitter",
             level: "Beginner",

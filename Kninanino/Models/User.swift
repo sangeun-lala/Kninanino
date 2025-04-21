@@ -10,6 +10,7 @@ import FirebaseFirestore
 
 struct AppUser: Identifiable, Codable {
     @DocumentID var id: String?
+    let email: String
     var username: String
     var displayName: String
     var level: String  // "Beginner", "Expert", "Advanced"

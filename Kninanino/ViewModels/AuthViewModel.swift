@@ -83,6 +83,7 @@ class AuthViewModel: ObservableObject {
                 // Create Firestore document
                 let newUser = AppUser(
                     id: user.uid,
+                    email: "mockmock@knina.com",
                     username: "mockknitter", // later make this user input
                     displayName: "Mock Knitter",
                     level: "Beginner",
