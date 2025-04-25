@@ -28,6 +28,9 @@ struct NewJournalView: View {
                     if viewModel.useExistingProject {
                         Section(header: Text("Select a Project")) {
                             Picker("Choose Project", selection: $viewModel.selectedProjectId) {
+                                // Placeholder option
+                                    Text("Select a Project").tag(nil as String?)
+                                // Real projects
                                 ForEach(viewModel.userProjects) { project in
                                     Text(project.title).tag(project.id as String?)
                                 }
@@ -76,6 +79,7 @@ struct NewJournalView: View {
                     Button("Save Journal") {
                         viewModel.addJournal(for: currentUser.id ?? "")
                     }
+                    .disabled(viewModel.useExistingProject && viewModel.selectedProjectId == nil)
                 }
                 .navigationTitle("New Journal")
             } else {
@@ -84,9 +88,17 @@ struct NewJournalView: View {
         }
         .onAppear {
             print("🟣 onAppear - user: \(String(describing: authViewModel.user))")
-            if authViewModel.currentUser == nil {
-                print("🔄 currentUser is nil – trying to fetch again")
-                authViewModel.fetchCurrentUser()
+            if let currentUser = authViewModel.currentUser {
+                    viewModel.fetchProjects(for: currentUser.id ?? "")
+                } else {
+                    print("🔄 currentUser is nil – trying to fetch again")
+                    authViewModel.fetchCurrentUser()
+                }
+            }
+        
+        .onChange(of: authViewModel.currentUser) { oldUser, newUser in
+            if let user = newUser {
+                viewModel.fetchProjects(for: user.id ?? "")
             }
         }
     }
