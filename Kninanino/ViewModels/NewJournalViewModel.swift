@@ -56,11 +56,18 @@ class NewJournalViewModel: ObservableObject {
         selectedImages = []
         for item in selectedPhotoItems {
             Task {
-                if let data = try? await item.loadTransferable(type: Data.self),
-                   let uiImage = UIImage(data: data) {
-                    await MainActor.run {
-                        self.selectedImages.append(uiImage)
+                do {
+                    if let data = try await item.loadTransferable(type: Data.self),
+                       let uiImage = UIImage(data: data) {
+                        await MainActor.run {
+                            self.selectedImages.append(uiImage)
+                            print("✅ Image loaded and converted to UIImage")
+                        }
+                    } else {
+                        print("❌ Failed to load image data or convert to UIImage")
                     }
+                } catch {
+                    print("❌ Error loading image: \(error.localizedDescription)")
                 }
             }
         }
@@ -68,39 +75,47 @@ class NewJournalViewModel: ObservableObject {
     
     
     func addJournal(for userId: String) {
-        isSaving = true
-        errorMessage = nil
-        let db = Firestore.firestore()
-        let journalId = UUID().uuidString
-        let entryDate = Date()
-        var projectIdToUse = selectedProjectId ?? ""
-        
-        if !useExistingProject {
-            let newProject = Project(
-                id: UUID().uuidString,
-                userId: userId,
-                title: newProjectTitle,
-                patternId: nil,                          // or newProjectPattern if you adapt types
-                yarnId: nil,
-                startDate: Date(),
-                endDate: nil,
-                notes: nil,
-                rating: nil,
-                needle: nil,
-                color: nil,
-                gaugeSwatches: []                        // assuming no swatch data yet
-            )
-            do {
-                try Firestore.firestore().collection("projects").document(newProject.id!).setData(from: newProject)
-                projectIdToUse = newProject.id!
-            } catch {
-                print("❌ Failed to create new project: \(error.localizedDescription)")
-                return
-            }
-        }
-        
-        // First upload images if any
         Task {
+            await MainActor.run {
+                self.isSaving = true
+                self.errorMessage = nil
+            }
+            
+            let db = Firestore.firestore()
+            let journalId = UUID().uuidString
+            let entryDate = Date()
+            var projectIdToUse = selectedProjectId ?? ""
+            
+            // Step 1: Create a new project if needed
+            if !useExistingProject {
+                let newProject = Project(
+                    id: UUID().uuidString,
+                    userId: userId,
+                    title: newProjectTitle,
+                    patternId: nil,
+                    yarnId: nil,
+                    startDate: Date(),
+                    endDate: nil,
+                    notes: nil,
+                    rating: nil,
+                    needle: nil,
+                    color: nil,
+                    gaugeSwatches: []
+                )
+                do {
+                    try Firestore.firestore().collection("projects").document(newProject.id!).setData(from: newProject)
+                    projectIdToUse = newProject.id!
+                } catch {
+                    print("❌ Failed to create new project: \(error.localizedDescription)")
+                    await MainActor.run {
+                        self.errorMessage = "Failed to create project"
+                        self.isSaving = false
+                    }
+                    return
+                }
+            }
+            
+            // Step 2: Upload images (if any)
             var photoURLs: [String] = []
             
             for (index, image) in selectedImages.enumerated() {
@@ -109,45 +124,63 @@ class NewJournalViewModel: ObservableObject {
                     let ref = Storage.storage().reference().child("journalPhotos/\(filename)")
                     
                     do {
+                        print("⬆️ Uploading image \(filename)...")
                         _ = try await ref.putDataAsync(data)
                         let url = try await ref.downloadURL()
+                        print("✅ Uploaded and got URL: \(url)")
                         photoURLs.append(url.absoluteString)
                     } catch {
-                        print("Image upload failed: \(error.localizedDescription)")
+                        print("❌ Image upload failed: \(error.localizedDescription)")
                     }
+                } else {
+                    print("❌ Failed to convert image at index \(index) to JPEG")
                 }
             }
             
+            // Step 3: Stop if image upload failed but images were selected
+            if !selectedImages.isEmpty && photoURLs.isEmpty {
+                await MainActor.run {
+                    self.errorMessage = "Image upload failed"
+                    self.isSaving = false
+                }
+                return
+            }
+            
+            // Step 4: Save the journal entry
             let newJournal = ProjectJournal(
                 id: nil,
-                projectId: projectId,
+                projectId: projectIdToUse,
                 userId: userId,
                 entryDate: entryDate,
                 locationId: locationId,
                 journalEntry: journalEntry,
-                photos: photos.isEmpty ? nil : photos,
+                photos: photoURLs.isEmpty ? nil : photoURLs,
                 likesCount: 0,
                 commentsCount: 0
             )
             
             do {
-                _ = try db.collection("Journals").addDocument(from: newJournal) { error in
-                    DispatchQueue.main.async {
+                _ = try db.collection("journals").addDocument(from: newJournal) { error in
+                    Task { @MainActor in
                         self.isSaving = false
                         if let error = error {
                             self.errorMessage = "Failed to save journal: \(error.localizedDescription)"
                         } else {
-                            print("Project journal saved ✅")
-                            // Optionally reset form fields
+                            print("✅ Project journal saved")
                             self.journalEntry = ""
                             self.photos = []
+                            self.selectedImages = []
+                            self.selectedPhotoItems = []
                         }
                     }
                 }
             } catch {
-                self.isSaving = false
-                self.errorMessage = "Unexpected error: \(error.localizedDescription)"
+                await MainActor.run {
+                    self.errorMessage = "Unexpected error: \(error.localizedDescription)"
+                    self.isSaving = false
+                }
             }
         }
     }
+    
 }

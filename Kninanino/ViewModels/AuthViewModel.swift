@@ -64,73 +64,73 @@ class AuthViewModel: ObservableObject {
         print("📩 Attempting to sign up with email: \(data.email)")
 
         Auth.auth().createUser(withEmail: data.email, password: data.password) { [weak self] result, error in DispatchQueue.main.async {
-                guard let self = self else {return}
-                self.isLoading = false
-                
-                if let error = error {
-                    print("❌ Sign-up failed: \(error.localizedDescription)")
-                    self.errorMessage = error.localizedDescription
-                    return
-                }
-                
-                guard let user = result?.user else {
-                    print("⚠️ Sign-up succeeded but user is nil.")
-                    self.errorMessage = "Unexpected error: user is nil"
-                    return
-                }
-                
-                // Create Firestore document
-                let newUser = AppUser(
-                    id: user.uid,
-                    email: data.email,
-                    username: data.username,
-                    displayName: data.displayName,
-                    level: data.level,
-                    bio: data.bio,
-                    homebase: data.homebase,
-                    profilePictureURL: data.profilePictureURL,
-                    dateJoined: Date(),
-                    followersCount: 0,
-                    followingCount: 0
-                )
-                
-                do {
-                    try Firestore.firestore().collection("users").document(user.uid).setData(from: newUser) { error in
-                        if let error = error {
-                            self.errorMessage = error.localizedDescription
-                            print("❌ Failed to save user to Firestore: \(error.localizedDescription)")
-                        } else {
-                            print("✅ Firestore user created successfully")
-                        }
-                    }
-                } catch {
-                    self.errorMessage = error.localizedDescription
-                    print("❌ Failed to encode user: \(error.localizedDescription)")
-                }
-                
-                // Send verification email
-                user.sendEmailVerification { error in
+            guard let self = self else {return}
+            self.isLoading = false
+            
+            if let error = error {
+                print("❌ Sign-up failed: \(error.localizedDescription)")
+                self.errorMessage = error.localizedDescription
+                return
+            }
+            
+            guard let user = result?.user else {
+                print("⚠️ Sign-up succeeded but user is nil.")
+                self.errorMessage = "Unexpected error: user is nil"
+                return
+            }
+            
+            // Create Firestore document
+            let newUser = AppUser(
+                id: user.uid,
+                email: data.email,
+                username: data.username,
+                displayName: data.displayName,
+                level: data.level,
+                bio: data.bio,
+                homebase: data.homebase,
+                profilePictureURL: data.profilePictureURL,
+                dateJoined: Date(),
+                followersCount: 0,
+                followingCount: 0
+            )
+            
+            do {
+                try Firestore.firestore().collection("users").document(user.uid).setData(from: newUser) { error in
                     if let error = error {
-                        print("Error sending verification email:", error.localizedDescription)
-                        self.errorMessage = "Verification email failed. Please try again."
-                        return
+                        self.errorMessage = error.localizedDescription
+                        print("❌ Failed to save user to Firestore: \(error.localizedDescription)")
                     } else {
-                        print("Verification email sent to : \(user.email ?? "")")
-                        self.authMessage = "Verification email sent! Please check your inbox."
+                        print("✅ Firestore user created successfully")
                     }
                 }
-
-                // Sign them out immediately
+            } catch {
+                self.errorMessage = error.localizedDescription
+                print("❌ Failed to encode user: \(error.localizedDescription)")
+            }
+            
+            // Send verification email
+            user.sendEmailVerification { error in
+                if let error = error {
+                    print("Error sending verification email:", error.localizedDescription)
+                    self.errorMessage = "Verification email failed. Please try again."
+                    return
+                } else {
+                    print("Verification email sent to : \(user.email ?? "")")
+                    self.authMessage = "Verification email sent! Please check your inbox."
+                }
+            }
+            
+            // Sign out AFTER a short delay to allow email verification & Firestore to complete
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 do {
                     try Auth.auth().signOut()
                     self.user = nil
                 } catch {
                     print("Error signing out after sign-up: \(error.localizedDescription)")
                 }
-                
-                //print("✅ Sign-up success: \(user.email ?? "unknown email")")
-                //self.user = user
             }
+            
+        }
         }
     }
 
