@@ -27,7 +27,7 @@ struct NewJournalView: View {
 
                     if viewModel.useExistingProject {
                         Section(header: Text("Select a Project")) {
-                            Picker("Choose Project", selection: $viewModel.selectedProjectId) {
+                            Picker("Project", selection: $viewModel.selectedProjectId) {
                                 // Placeholder option
                                     Text("Select a Project").tag(nil as String?)
                                 // Real projects
