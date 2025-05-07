@@ -23,5 +23,7 @@ struct Project: Identifiable, Codable {
     var needle: String?
     var color: String?
     var gaugeSwatches: [GaugeSwatch]
+    //var coverImageName: String
+    //var ImageNames: [String]
 }
 
