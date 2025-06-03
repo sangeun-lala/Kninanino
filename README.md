@@ -1,89 +1,133 @@
-# Kninanino
+# 🧶 Kninanino
 
-Kninanino is a knitting-focused mobile app designed to help users track their knitting projects, explore inspiring locations, and connect with a creative community. 
-Built from scratch as a solo project, this app is also my learning journey into full-stack development — from mobile architecture to backend design and long-term scalability.
+*Kninanino* is a SwiftUI-based iOS app for knitters to track their projects, share updates, and discover knitting-friendly spots nearby — built solo as a full-stack learning journey and portfolio piece.
+
+![Kninanino UI Prototype](assets/ui-overview.png) <!-- Replace with actual image when ready -->
+
+👉 [View Interactive Figma Prototype](https://www.figma.com/design/M3brzgGpnqhuwkHNjUoV99/Kninanino?node-id=0-1&t=5DEPAp0DmLzJJgQN-1)
+
+---
+
+## 🔗 Quick Links
+- [Vision](#-vision)
+- [Feature List](#-core-features)
+- [Architecture Overview](#-architecture-overview)
+- [User Personas & Stories](#-user-personas--stories)
+- [Data Mapping](#-data-mapping--architecture)
+- [Roadmap](#-roadmap)
+- [Current Progress](#-current-status)
+- [Contact](#-get-in-touch)
 
 ---
 
 ## 🧠 Vision
 
 Kninanino isn’t just a journal — it’s a warm, playful space where knitters can:
+
 - Track their progress and reflect on their journey
 - Share project photos and yarn insights
 - Discover knitting-friendly spots and community hubs
 - Find inspiration tailored to their taste and experience level
 
+This app is also my hands-on entry point into full-stack development, with a focus on both mobile product design and long-term scalability.
+
 ---
 
 ## 🔨 What I'm Building
 
-This app is my entry point into:
 - iOS development using **Swift & SwiftUI**
-- Backend design using **Firestore (NoSQL)** with long-term compatibility with **SQL**
-- Understanding cloud sync, data architecture, and system design
-- Writing clean, testable code and making thoughtful product decisions
-
----
-
-## 🗂️ Architecture Overview
-
-| Layer         | Tool / Language             | Notes                                                                 |
-|---------------|-----------------------------|-----------------------------------------------------------------------|
-| Frontend      | Swift, SwiftUI              | Building responsive UI and journaling forms                          |
-| Backend       | Firebase Firestore          | Document-based structure, later exportable to SQL                    |
-| Cloud Storage | Firebase Storage            | For storing user-uploaded photos                                     |
-| Authentication| Firebase Auth               | For user login, account association                                  |
-| Long-term     | PostgreSQL (planned)        | For complex querying, analytics, and multi-platform flexibility      |
+- Backend design using **Firebase Firestore (NoSQL)**, designed for long-term compatibility with SQL
+- Integration of **cloud sync, authentication, and photo storage**
+- A deeper understanding of **system design, clean code, and developer–user empathy**
 
 ---
 
 ## 🧵 Core Features
 
-- 📝 **Project Journal**  
-  Add progress updates, yarn details, tags, and project photos
+| Feature | Status | Description |
+|---------|--------|-------------|
+| 📝 **Project Journal** | ✅ In Progress | Track yarns, progress, and notes with photo support |
+| 📍 **Knitting Spots** | 🔜 Planned | Tag, review, and share cozy places to knit |
+| 💬 **Community Inspiration Feed** | 🔜 Planned | Browse trending patterns and follow other knitters |
+| 🧭 **Beginner's Guide** | 🔜 Planned | Curated resources for first-time knitters |
 
-- 📍 **Knitting Spots**  
-  Tag and review locations great for knitting
+---
 
-- 💬 **Community Inspiration Feed** (future)  
-  View others’ progress and discover trending patterns
+## 🗂️ Architecture Overview
 
-- 🧭 **Beginner's Guide** (future)  
-  A simple path for knitting newbies to get started with confidence
+| Layer         | Tool / Language      | Notes                                     |
+|---------------|----------------------|-------------------------------------------|
+| Frontend      | Swift, SwiftUI        | Building responsive UI and journaling forms |
+| Backend       | Firebase Firestore    | Document-based, structured for scale      |
+| Cloud Storage | Firebase Storage      | For storing user-uploaded photos          |
+| Authentication| Firebase Auth         | For secure user login                     |
+| Long-term     | PostgreSQL (planned)  | For analytics and multi-platform support  |
+
+---
+
+## 👤 User Personas & Stories
+
+### Persona 1: 🧶 Beginner Knitter, Age 25, London
+> "I just started my first scarf and want to track my progress in a fun and easy way. I'd love to find cafés near me where I can knit without awkward stares."
+
+- Needs guidance, encouragement, and social discovery
+- Wants light onboarding and journaling templates
+
+### Persona 2: 🎯 Experienced Knitter, Age 45, Tokyo
+> "I have a dozen WIPs. I want to track yarn usage, post progress photos, and share notes on the best needles or patterns."
+
+- Needs robust tagging, yarn libraries, and offline access
+- Wants pattern inspiration and trusted user reviews
 
 ---
 
 ## 🧱 Data Mapping & Architecture
 
-I’m maintaining clear documentation of how each feature maps across:
-- Swift app data models
-- Firestore document structure
-- SQL schema (for future migration)
+I’m maintaining structured documentation of how each feature maps across:
 
-📁 See `data-models/` and `db-schema/` folders for details.
+- `SwiftUI` app data models
+- Firestore document structure
+- Planned SQL schema for future migration
+
+📁 Check `data-models/` and `db-schema/` folders for the latest.
 
 ---
 
-## 💭 Why I'm Building This
+## 🛣️ Roadmap
 
-I love knitting, design, and beautiful data flow.  
-I also wanted to go beyond tutorials and build something real — not just a toy project, but an app I’d use and share.
-
-This project is also about becoming a developer who understands both product thinking and solid architecture.
+| Feature | Status | Notes |
+|---------|--------|-------|
+| Project Journal | ✅ In Progress | Core MVP feature |
+| Knitting Spot Map | 🟡 Next | Includes geolocation tagging |
+| Inspiration Feed | 🔜 Planned | Community-driven discovery |
+| Offline Support | 🔜 Planned | Local cache of journals |
+| PostgreSQL Integration | 🔜 Future | For multi-platform growth |
+| Pattern Analytics | 💡 Idea | Optional long-term feature using SQL & ML |
 
 ---
 
 ## 🚧 Current Status
 
-Working on:  
-✅ Add New Journal Entry screen (MVP core feature)  
-🟡 Firestore structure & image uploads  
-🔜 Offline cache & project list view
+Working on:
+- ✅ Add New Journal Entry screen (MVP core feature)
+- 🟡 Firestore structure & image uploads
+- 🔜 Offline cache & project list view
+- 🔜 Knitting Spot tagging UI
 
 ---
 
 ## 🤝 Get In Touch
 
-If you're curious about the project, want to collaborate, or are building something similar — reach out!
-sechowork@gmail.com
+If you're curious about the project, want to collaborate, or are building something similar — I’d love to chat!
+
+📧 sechowork@gmail.com  
+📍 London, UK
+
+---
+
+## ⚠️ Disclaimer
+
+This is an early-stage learning and portfolio project. Code is a work in progress and **not yet production-ready**. API keys and sensitive credentials are safely excluded from this repository.
+
+---
 
