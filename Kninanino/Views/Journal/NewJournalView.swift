@@ -77,7 +77,7 @@ struct NewJournalView: View {
                     }
                     
                     Button("Save Journal") {
-                        viewModel.addJournal(for: currentUser.id ?? "")
+                        viewModel.addJournal()
                     }
                     .disabled(viewModel.useExistingProject && viewModel.selectedProjectId == nil)
                 }

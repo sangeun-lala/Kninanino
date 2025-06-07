@@ -10,6 +10,7 @@ import FirebaseFirestore
 import FirebaseStorage
 import PhotosUI
 import SwiftUI
+import FirebaseAuth
 
 class NewJournalViewModel: ObservableObject {
     @Published var projectId: String = ""
@@ -74,14 +75,24 @@ class NewJournalViewModel: ObservableObject {
     }
     
     
-    func addJournal(for userId: String) {
+    func addJournal() {
+        
+        guard let authUserId = Auth.auth().currentUser?.uid else {
+            print("❌ No authenticated user found.")
+            self.errorMessage = "You must be logged in to add a journal."
+            return
+        }
+        
         Task {
+            print("🆔 Using Auth UID for journal: \(authUserId)")
+    
             await MainActor.run {
                 self.isSaving = true
                 self.errorMessage = nil
             }
             
             let db = Firestore.firestore()
+            let userId = authUserId
             let journalId = UUID().uuidString
             let entryDate = Date()
             var projectIdToUse = selectedProjectId ?? ""
@@ -121,7 +132,7 @@ class NewJournalViewModel: ObservableObject {
             for (index, image) in selectedImages.enumerated() {
                 if let data = image.jpegData(compressionQuality: 0.8) {
                     let filename = "\(journalId)_\(index).jpg"
-                    let ref = Storage.storage().reference().child("journalPhotos/\(filename)")
+                    let ref = Storage.storage().reference().child("users/\(userId)/journalPhotos/\(filename)")
                     
                     do {
                         print("⬆️ Uploading image \(filename)...")
